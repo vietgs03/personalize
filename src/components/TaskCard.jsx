@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { RoadmapContext } from '../context/RoadmapContext';
 import { ThemeContext } from '../context/ThemeContext';
+import CircularProgress from './CircularProgress';
 
 const TaskCard = ({ goal, quarterIndex, goalIndex }) => {
   const { updateGoalStatus, statuses } = useContext(RoadmapContext);
@@ -45,7 +46,7 @@ const TaskCard = ({ goal, quarterIndex, goalIndex }) => {
     }
   };
 
-  const getCategoryColor = (category) => {
+  const getCategoryClasses = (category) => {
     switch (category) {
       case 'Golang Core': return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
       case 'Cloud': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
@@ -53,6 +54,23 @@ const TaskCard = ({ goal, quarterIndex, goalIndex }) => {
       case 'System Design': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
       case 'Project': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
       default: return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
+    }
+  };
+
+  const getCategoryIcon = (category) => {
+    switch (category) {
+      case 'Golang Core':
+        return '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>';
+      case 'Cloud':
+        return '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>';
+      case 'AI/ML':
+        return '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>';
+      case 'System Design':
+        return '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>';
+      case 'Project':
+        return '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>';
+      default:
+        return '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>';
     }
   };
 
@@ -128,8 +146,12 @@ const TaskCard = ({ goal, quarterIndex, goalIndex }) => {
         </div>
 
         <div className="flex flex-wrap gap-2 mb-3">
-          <span className={`flex items-center px-2 py-1 rounded-full text-xs font-medium ${getCategoryColor(goal.category)}`}>
+          <span className={`flex items-center px-2 py-1 rounded-full text-xs font-medium ${getCategoryClasses(goal.category)}`}>
+            <span className="w-4 h-4 mr-1" dangerouslySetInnerHTML={{ __html: getCategoryIcon(goal.category) }}></span>
             {goal.category}
+            <span className="ml-1">
+              <CircularProgress progress={goal.status === 'Done' ? 100 : goal.status === 'In Progress' ? 50 : 0} size={16} strokeWidth={2} showLabel={false} />
+            </span>
           </span>
           <span className={`flex items-center px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(goal.status)}`}>
             {renderStatusIcon(goal.status)}

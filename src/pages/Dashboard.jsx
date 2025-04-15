@@ -190,7 +190,7 @@ const Dashboard = () => {
           {roadmapData.length > 0 ? (
             roadmapData.map((quarter, index) => (
               <QuarterCard 
-                key={quarter.quarter} 
+                key={`${quarter.quarter}-${index}`} 
                 quarter={quarter} 
                 quarterIndex={index}
               />
