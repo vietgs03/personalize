@@ -1,67 +1,53 @@
-export const roadmapData = [
-  {
-    quarter: "Q2 2025",
-    title: "Optimize Backend & AI Integration",
-    progress: 45,
-    goals: [
-      {
-        title: "Build gRPC-based microservices",
-        description: "Set up client-server with protocol buffers, handle errors, retries, and auth",
-        category: "Golang Core",
-        status: "Done",
-        estimatedTime: "1 week",
-        deadline: "2025-04-20",
-        priority: "High",
-        resources: [
-          { name: "gRPC Go Docs", url: "https://grpc.io/docs/languages/go/" },
-        ],
-      },
-      {
-        title: "Parallel AI inference service",
-        description: "Write a batch processing service in Go using errgroup, optimized for throughput",
-        category: "AI/ML",
-        status: "In Progress",
-        estimatedTime: "2 weeks",
-        deadline: "2025-04-30",
-        priority: "High",
-      },
-      {
-        title: "Deploy AI model to Vertex AI",
-        description: "Convert local model and deploy to Vertex AI endpoint using Terraform",
-        category: "Cloud",
-        status: "Not Started",
-        estimatedTime: "1 week",
-        deadline: "2025-05-05",
-        priority: "Medium",
-        resources: [
-          { name: "Vertex AI Tutorial", url: "https://cloud.google.com/vertex-ai/docs/general/deploying-models" },
-        ],
-      }
-    ]
-  },
-  {
-    quarter: "Q3 2025",
-    title: "Master Distributed Systems & Scalability",
-    progress: 0,
-    goals: [
-      {
-        title: "Design event-driven system with Kafka",
-        description: "Use Kafka pub-sub to decouple services and handle high-throughput message processing",
-        category: "System Design",
-        status: "Not Started",
-        estimatedTime: "2 weeks",
-        deadline: "2025-07-10",
-        priority: "High",
-      }
-    ]
-  }
+// Import roadmap data from individual files
+import golangRoadmap from './golangrm.js';
+import aiRoadmap from './ai.js';
+import cloudRoadmap from './cloud.js';
+import designSystemRoadmap from './designsystem.js';
+import dsaRoadmap from './dsa.js';
+import webDevRoadmap from './webdev.js';
+import databaseRoadmap from './database.js';
+import securityRoadmap from './security.js';
+import performanceRoadmap from './performance.js';
+import projectRoadmap from './project.js';
+
+const roadmapData = [
+  // Golang Roadmap
+  ...golangRoadmap,
+  // AI/ML Roadmap
+  ...aiRoadmap,
+  // Cloud Roadmap
+  ...cloudRoadmap,
+  // System Design Roadmap
+  ...designSystemRoadmap,
+  // Data Structures & Algorithms Roadmap
+  ...dsaRoadmap,
+  // Web Development Roadmap
+  ...webDevRoadmap,
+  // Database Roadmap
+  ...databaseRoadmap,
+  // Security Roadmap
+  ...securityRoadmap,
+  // Performance Roadmap
+  ...performanceRoadmap,
+  // Project Roadmap
+  ...projectRoadmap
 ];
 
+// Export the combined roadmap data
+export { roadmapData };
+
+// Export categories, statuses, and priorities for filtering
 export const categories = [
   "Golang Core", 
   "Cloud", 
   "AI/ML", 
   "System Design", 
+  "Data Structures",
+  "Algorithms",
+  "Web Development",
+  "Database",
+  "Security",
+  "Performance",
   "Project"
 ];
 
